@@ -1,0 +1,31 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:staging": "headless=false test_env=staging yarn playwright test",
+    "regression-test": "test_env=staging yarn playwright test tests/spec/web/playwright-agent/demoblaze-homepage-products.spec.ts --project=chromium",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure-single-file:generate": "allure generate --single-file allure-results --clean -o allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^18.0.0",
+    "allure-playwright": "^3.4.1",
+    "cross-env": "^10.1.0",
+    "dotenv": "^16.0.0",
+    "googleapis": "^170.1.0",
+    "playwright": "^1.56.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "csv-parse": "^5.5.6",
+    "dayjs": "^1.11.10",
+    "genson-js": "^0.0.8",
+    "util": "^0.12.5"
+  }
+}
