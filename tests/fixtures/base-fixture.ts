@@ -1,27 +1,22 @@
 import { test as base } from "@playwright/test";
 import { expect } from "@playwright/test";
-import { LoginPage, User } from '../page-objects/login-page/login-page';
-import  generateEmail  from '../../helper/generate-email.ts';
+import { HomePage } from '../page-objects/home-page/home-page.ts';
 import ENV from "../../helper/env-config";
+import testData from "../test-data/test-data.json";
 
 export type MyFixtures = {
-    loginPage: LoginPage;
-    user: User;
+    loginPage: HomePage;
 };
 
 export const test = base.extend<MyFixtures>({
-    user: {
-        email: 'daonguyenthinh96@gmail.com',
-        password: ''
-    },
-    loginPage: async ({ browser, user }, use) => {
+        loginPage: async ({ browser }, use) => {
         let context = await browser.newContext();
         const page = await context.newPage();
         let base_url = `${ENV.BASE_URL}`
-        const loginPage = new LoginPage(page, user);
+        const loginPage = new HomePage(page);
 
         await loginPage.goto(base_url)
-        await loginPage.login();
+        await loginPage.inputEmailAndPassword(testData.email, testData.password);
         await page.context().storageState({ path: ENV.STORAGE_STATE });
         await use(loginPage);
         await context.close();

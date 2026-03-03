@@ -1,5 +1,5 @@
 export const getLocale = (
-    language: string,
+    language: string | undefined,
     english: object,
     vietnamese: object
 ) => {

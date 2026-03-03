@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "required": ["Items", "LastEvaluatedKey"],
+  "properties": {
+    "Items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cat", "desc", "id", "img", "price", "title"],
+        "properties": {
+          "cat": {
+            "type": "string",
+            "description": "string"
+          },
+          "desc": {
+            "type": "string",
+            "description": "string"
+          },
+          "id": {
+            "type": "integer",
+            "description": "string"
+          },
+          "img": {
+            "type": "string",
+            "description": "string"
+          },
+          "price": {
+            "type": "number",
+            "description": "string"
+          },
+          "title": {
+            "type": "string",
+            "description": "string"
+          }
+        }
+      }
+    },
+    "LastEvaluatedKey": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Pagination key"
+        }
+      }
+    }
+  }
+}

@@ -1,30 +1,61 @@
-name: Playwright CI
+name: Manual Test Runner
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select test environment"
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      test_type:
+        description: "Select test type"
+        required: true
+        type: choice
+        options:
+          - regression
+          - e2e
+
 jobs:
-  test:
+  run-tests:
+    name: Run ${{ inputs.test_type }} tests on ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    
+    # Optional: protect prod with environment rules
+    environment: ${{ inputs.environment }}
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.19.6'
-          cache: 'yarn'
+          node-version: 20
+
       - name: Install dependencies
-        run: yarn
+        run: npm ci
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run tests
-        run: test_env=staging yarn playwright test tests/spec/web/job-page.spec.ts --headed --project=chromium
-      - name: Upload Playwright Report
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Test type: ${{ inputs.test_type }}"
+
+          if [ "${{ inputs.test_type }}" = "regression" ]; then
+            npx playwright test tests/spec/web/demo.spec.ts --project=chromium --project=chromium
+          else
+            npx playwright test tests/spec/web/demo.spec.ts --project=chromium --project=chromium
+          fi
+        env:
+          TEST_ENV: ${{ inputs.environment }}
+      - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: allure-results  
-          
+          name: playwright-report-${{ inputs.environment }}-${{ inputs.test_type }}
+          path: allure-results
+          retention-days: 7
+

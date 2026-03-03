@@ -67,16 +67,20 @@ This command downloads the required browser binaries.
 
 ```text
 project-root/
-├── .auth/
-│   └── user.json
 ├── tests/
-│   └── spec
-│   └── fixtures
+│   └── spec.           # Playwright test file
+│   └── fixtures         
 │   └── page-objects
-│   └── test-data
-├── test-output
-├── playwright.config.ts
-├── package.json
+│      ├── base-page    # Reusable step functions
+│      └── cart-page    # Element selector and steps of cart page
+│      └── home-page    # Element selector and steps of home page
+│   └── test-data       # Data test
+├── reports/                # Test reports and results
+│    ├── allure-results/    # Allure test results
+│    ├── allure-report/     # Generated Allure HTML report
+│    └── test-results/      # Playwright test artifacts
+├── playwright.config.ts    # Playwright configuration file
+├── package.json            
 └── README.md
 ```
 
@@ -99,7 +103,7 @@ npx playwright test --headed
 ### Run a specific test file
 
 ```bash
-test_env=staging yarn playwright test tests/spec/web/job-page.spec.ts --project=chromium --headed
+npm run test
 ```
 
 ---
@@ -111,22 +115,6 @@ After test execution:
 ```bash
 npx playwright show-report
 ```
-
----
-
-## 7. Environment variables (recommended)
-
-Do **not** hard-code credentials.
-
-Create a `.env` file:
-
-```env
-BASE_URL=https://example.com
-USER_EMAIL=your_email
-USER_PASSWORD=your_password
-```
-
-Load it using `dotenv` in your config or test setup.
 
 ---
 

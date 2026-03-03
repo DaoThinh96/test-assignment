@@ -6,7 +6,7 @@ export default defineConfig({
   globalSetup: "./helper/global-setup.ts",
   testDir: './tests',
   snapshotPathTemplate: `test-data/snapshot/${process.env.tenant}/desktop/{arg}{ext}`,
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
     timeout: 30000
   },
@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   use: {
     actionTimeout: 10000,
-    // baseURL: 'http://localhost:3000',
+    baseURL: 'https://www.demoblaze.com/',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'on',
@@ -32,7 +32,6 @@ export default defineConfig({
     javaScriptEnabled: true,
     launchOptions: { args: ['--test-third-party-cookie-phaseout', '--disable-web-security', '--disable-blink-features=AutomationControlled'] },
     headless: process.env.headless ? false : true,
-    // storageState: '.auth/user.json',
   },
 
   /* Configure projects for major browsers */
@@ -67,16 +66,5 @@ export default defineConfig({
       name: 'Mobile Safari',
       use: { ...devices['iPhone 13'] },
     },
-    // Setup project
-    // { name: 'setup', testMatch: /.*\.setup\.ts/ },
-
-    // {
-    //   name: 'before-launch',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     storageState: '.auth/user.json',
-    //   },
-    //   dependencies: ['setup'],
-    // },
   ],
 });
