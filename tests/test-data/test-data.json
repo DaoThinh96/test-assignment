@@ -1,6 +1,4 @@
 {
-  "email": "test",
-  "password": "test",
   "itemsToAdd": [
     "Samsung galaxy s6",
     "Nokia lumia 1520",
@@ -9,7 +7,6 @@
   "nameInPlaceOrder": "John Doe",
   "countryInPlaceOrder": "USA",
   "cityInPlaceOrder": "New York",
-  "creditCardInPlaceOrder": "1234 5678 9012 3456",
   "monthInPlaceOrder": "12",
   "yearInPlaceOrder": "2026"
 }

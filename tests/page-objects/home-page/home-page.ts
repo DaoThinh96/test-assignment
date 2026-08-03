@@ -23,11 +23,9 @@ export class HomePage extends BasePage {
 
   /* ============ Methods =============== */
   async inputEmailAndPassword(email: string, password: string): Promise<void> {
-    await this.username.waitFor({state: 'visible'}).then(async () => {
-      await this.waitAndFill(this.username, email);
-      await this.waitAndFill(this.password, password);
-      await this.waitAndClick(this.logInButton);
-    });
+    await this.waitAndFill(this.username, email);
+    await this.waitAndFill(this.password, password);
+    await this.waitAndClick(this.logInButton);
   }
 
   async addItemsToCart(itemsList: string[]): Promise<void> {
