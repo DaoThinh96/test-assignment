@@ -39,6 +39,17 @@ jobs:
         run: npm ci
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+      - name: Create environment file
+        run: |
+          mkdir -p environments
+          cat > "environments/.env.${{ inputs.environment }}" << EOF
+          BASE_URL=${{ vars.BASE_URL }}
+          BASE_API_URL=${{ vars.BASE_API_URL }}
+          STORAGE_STATE=.auth/user.json
+          TEST_EMAIL=${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}
+          TEST_CREDIT_CARD=${{ secrets.TEST_CREDIT_CARD }}
+          EOF
       - name: Run tests
         run: |
           echo "Environment: ${{ inputs.environment }}"

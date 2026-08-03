@@ -1,10 +1,11 @@
 import { test } from '../../fixtures/base-fixture';
 import testData from '../../test-data/test-data.json';
+import ENV from '../../../helper/env-config';
 
 test.describe('Demoblaze web flows', () => {
   test('Verify login successfully', {tag: ['@login', '@regression']}, async ({ homePage }) => {
     await homePage.navigateTab('Log in');
-    await homePage.inputEmailAndPassword(testData.email, testData.password);
+    await homePage.inputEmailAndPassword(ENV.TEST_EMAIL!, ENV.TEST_PASSWORD!);
     await homePage.verifyLoginSuccessful();
   });
 
@@ -28,7 +29,7 @@ test.describe('Demoblaze web flows', () => {
         name: testData.nameInPlaceOrder,
         country: testData.countryInPlaceOrder,
         city: testData.cityInPlaceOrder,
-        creditCard: testData.creditCardInPlaceOrder,
+        creditCard: ENV.TEST_CREDIT_CARD!,
         month: testData.monthInPlaceOrder,
         year: testData.yearInPlaceOrder,
       });
@@ -40,7 +41,7 @@ test.describe('Demoblaze web flows', () => {
 
     await test.step('Verify purchase successfully and close confirmation', async () => {
       await cartPage.verifyPurchaseSuccessfully(
-        testData.creditCardInPlaceOrder,
+        ENV.TEST_CREDIT_CARD!,
         testData.nameInPlaceOrder,
         testData.yearInPlaceOrder,
       );

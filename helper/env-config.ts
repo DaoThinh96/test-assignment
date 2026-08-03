@@ -15,4 +15,7 @@ export default class ENV {
   public static BASE_URL = process.env.BASE_URL;
   public static BASE_API_URL = process.env.BASE_API_URL;
   public static STORAGE_STATE = process.env.STORAGE_STATE;
+  public static TEST_EMAIL = process.env.TEST_EMAIL;
+  public static TEST_PASSWORD = process.env.TEST_PASSWORD;
+  public static TEST_CREDIT_CARD = process.env.TEST_CREDIT_CARD;
 }
