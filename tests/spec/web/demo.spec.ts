@@ -28,5 +28,6 @@ test.describe('Demoblaze web flows', () => {
       testData.nameInPlaceOrder,
       testData.yearInPlaceOrder,
     );
+    await cartPage.clickOKBtn();
   });
 });

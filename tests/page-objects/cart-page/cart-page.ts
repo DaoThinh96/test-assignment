@@ -22,6 +22,7 @@ export class CartPage extends BasePage {
   readonly purchaseSuccessfullHeader: Locator
   readonly purchaseInfo: Locator
   readonly priceEachItem: (item: string) => Locator
+  readonly okButton: Locator
 
   constructor(page: Page) {
     super(page);
@@ -38,6 +39,7 @@ export class CartPage extends BasePage {
     this.purchaseSuccessfullHeader = page.getByRole('heading', { name: 'Thank you for your purchase!' });
     this.purchaseInfo = page.locator('.sweet-alert > p');
     this.priceEachItem = (item: string) => page.locator(`(//td[text()="${item}"]//following-sibling::td)[1]`);
+    this.okButton = page.getByRole('button', { name: 'OK' });
   }
 
   /* ============ Methods =============== */
@@ -47,6 +49,10 @@ export class CartPage extends BasePage {
 
   async clickPurchaseBtn(): Promise<void> {
     await this.waitAndClick(this.purchaseButton);
+  }
+
+  async clickOKBtn(): Promise<void> {
+    await this.waitAndClick(this.okButton);
   }
 
   async getTotalPriceInCart(): Promise<string> {
