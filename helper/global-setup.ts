@@ -1,14 +1,10 @@
 import { FullConfig } from "@playwright/test";
-import dotenv from 'dotenv';
+import ENV from "./env-config";
 
-async function globalSetup(config: FullConfig) {
-  // Handle environment config
-  if (process.env.test_env) {
-    dotenv.config({
-      path: `./environments/.env.${process.env.test_env}`,
-      override: true
-    })
-  }
+// Environment variables are loaded in helper/env-config.ts at import time
+// (driven by TEST_ENV). This hook just surfaces which environment is active.
+async function globalSetup(_config: FullConfig) {
+  console.log(`Running tests against environment: ${ENV.TEST_ENV} (${ENV.BASE_URL})`);
 }
 
 export default globalSetup;

@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 import ENV from './helper/env-config';
-import { MyFixtures } from '../test-assignment/tests/fixtures/base-fixture';
 
 export default defineConfig({
   globalSetup: "./helper/global-setup.ts",
@@ -13,17 +12,17 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : 1,
+  workers: process.env.CI ? 2 : undefined,
   reporter: [
     ["html", { open: "never", outputFolder: "./test-output/html" }],
     ["allure-playwright", { detail: true, outputFolder: "./test-output/allure-results" }],
   ],
   use: {
     actionTimeout: 10000,
-    baseURL: 'https://www.demoblaze.com/',
+    baseURL: ENV.BASE_URL || 'https://www.demoblaze.com',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    video: 'on',
+    video: 'retain-on-failure',
     extraHTTPHeaders: {
       'Accept': 'application/vnd.github.v3+json',
     },
