@@ -1,26 +1,33 @@
 import { test as base } from "@playwright/test";
-import { expect } from "@playwright/test";
-import { HomePage } from '../page-objects/home-page/home-page.ts';
-import ENV from "../../helper/env-config";
+import { HomePage } from "../page-objects/home-page/home-page";
+import { CartPage } from "../page-objects/cart-page/cart-page";
 import testData from "../test-data/test-data.json";
 
 export type MyFixtures = {
-    loginPage: HomePage;
+  homePage: HomePage;
+  cartPage: CartPage;
+  loginPage: HomePage;
 };
 
 export const test = base.extend<MyFixtures>({
-        loginPage: async ({ browser }, use) => {
-        let context = await browser.newContext();
-        const page = await context.newPage();
-        let base_url = `${ENV.BASE_URL}`
-        const loginPage = new HomePage(page);
+  homePage: async ({ page }, use) => {
+    const homePage = new HomePage(page);
+    await homePage.goto("/");
+    await use(homePage);
+  },
 
-        await loginPage.goto(base_url)
-        await loginPage.inputEmailAndPassword(testData.email, testData.password);
-        await page.context().storageState({ path: ENV.STORAGE_STATE });
-        await use(loginPage);
-        await context.close();
-    }
-})
+  cartPage: async ({ page }, use) => {
+    await use(new CartPage(page));
+  },
 
-export { expect } from '@playwright/test';
+  loginPage: async ({ page }, use) => {
+    const homePage = new HomePage(page);
+    await homePage.goto("/");
+    await homePage.navigateTab("Log in");
+    await homePage.inputEmailAndPassword(testData.email, testData.password);
+    await homePage.verifyLoginSuccessful();
+    await use(homePage);
+  },
+});
+
+export { expect } from "@playwright/test";
