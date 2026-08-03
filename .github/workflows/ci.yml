@@ -45,9 +45,9 @@ jobs:
           echo "Test type: ${{ inputs.test_type }}"
 
           if [ "${{ inputs.test_type }}" = "regression" ]; then
-            npx playwright test tests/spec/web/demo.spec.ts --project=chromium --project=chromium
+            npx playwright test tests/spec/web/demo.spec.ts --project=chromium
           else
-            npx playwright test tests/spec/web/demo.spec.ts --project=chromium --project=chromium
+            npx playwright test tests/spec/web/demo.spec.ts --project=chromium
           fi
         env:
           TEST_ENV: ${{ inputs.environment }}

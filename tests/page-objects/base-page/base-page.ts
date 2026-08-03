@@ -2,8 +2,7 @@ import { expect, Locator, Page } from "@playwright/test";
 
 export class BasePage {
   readonly page: Page;
-  readonly localization: any;
-  readonly tabLink: Function;
+  readonly tabLink: (name: string) => Locator;
 
   constructor(page: Page) {
     this.page = page;

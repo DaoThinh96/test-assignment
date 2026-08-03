@@ -1,9 +1,9 @@
-import { test, expect, request } from '@playwright/test';
+import { test, expect, request, APIRequestContext } from '@playwright/test';
 import ENV from "../../../helper/env-config";
 import { validateJsonSchema } from "../../../helper/validate-schema.ts";
 
 test.describe('Verify api entries', () => {
-  let contextRequest: any;
+  let contextRequest: APIRequestContext;
 
   test.beforeAll(async ({ playwright }) => {
     contextRequest = await playwright.request.newContext({

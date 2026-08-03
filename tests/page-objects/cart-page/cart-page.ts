@@ -21,7 +21,7 @@ export class CartPage extends BasePage {
   readonly purchaseButton: Locator
   readonly purchaseSuccessfullHeader: Locator
   readonly purchaseInfo: Locator
-  readonly priceEachItem: Function
+  readonly priceEachItem: (item: string) => Locator
 
   constructor(page: Page) {
     super(page);

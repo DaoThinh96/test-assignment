@@ -7,7 +7,7 @@ export class HomePage extends BasePage {
   readonly accountName: Locator
   readonly logoutLink: Locator
   readonly logInButton: Locator
-  readonly itemLocatorByLink: Function
+  readonly itemLocatorByLink: (itemName: string) => Locator
   readonly addToCart: Locator
 
   constructor(page: Page) {
