@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { HomePage } from '../../page-objects/home-page/home-page.ts';
 import { CartPage } from '../../page-objects/cart-page/cart-page.ts';
 import testData from '../../test-data/test-data.json';
@@ -32,8 +32,8 @@ test('Verify add items to cart successfully @cart @regression', async ({ page })
   });
   await cartPage.clickPurchaseBtn();
   await cartPage.verifyPurchaseSuccessfully(
-    testData.nameInPlaceOrder,
     testData.creditCardInPlaceOrder,
+    testData.nameInPlaceOrder,
     testData.yearInPlaceOrder
   );
 });
