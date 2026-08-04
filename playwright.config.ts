@@ -35,17 +35,15 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1600, height: 1200 },
-        launchOptions: {
-          args: ["--start-maximized", '--test-third-party-cookie-phaseout', '--disable-web-security'],
-        }
-      }
+        storageState: '.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
-
     {
       name: 'edge',
       use: {

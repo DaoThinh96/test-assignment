@@ -1,21 +1,19 @@
-import { test } from '../../fixtures/base-fixture';
-import testData from '../../test-data/test-data.json';
+import { test } from '../../../fixtures/base-fixture';
+import testData from '../../../test-data/test-data.json';
 import ENV from '../../../helper/env-config';
 
 test.describe('Demoblaze web flows', () => {
   test('Verify login successfully', {tag: ['@login', '@regression']}, async ({ homePage }) => {
-    await homePage.navigateTab('Log in');
-    await homePage.inputEmailAndPassword(ENV.TEST_EMAIL!, ENV.TEST_PASSWORD!);
-    await homePage.verifyLoginSuccessful();
+       await homePage.verifyLoginSuccessful();
   });
 
-  test('Complete purchase flow', {tag: ['@cart', '@regression']}, async ({ loginPage, cartPage }) => {
+  test('Complete purchase flow', {tag: ['@cart', '@regression']}, async ({ homePage, cartPage }) => {
     await test.step('Add items to cart', async () => {
-      await loginPage.addItemsToCart(testData.itemsToAdd);
+      await homePage.addItemsToCart(testData.itemsToAdd);
     });
 
     await test.step('Navigate to Cart tab', async () => {
-      await loginPage.navigateTab('Cart');
+      await homePage.navigateTab('Cart');
     });
 
     await test.step('Verify items and total price in cart', async () => {
