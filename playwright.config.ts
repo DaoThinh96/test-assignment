@@ -15,7 +15,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: [
     ["html", { open: "never", outputFolder: "./test-output/html" }],
-    ["allure-playwright", { detail: true, outputFolder: "./test-output/allure-results" }],
+    ["allure-playwright", { detail: true, resultsDir: "./test-output/allure-results" }],
   ],
   use: {
     actionTimeout: 10000,
@@ -35,17 +35,15 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1600, height: 1200 },
-        launchOptions: {
-          args: ["--start-maximized", '--test-third-party-cookie-phaseout', '--disable-web-security'],
-        }
-      }
+        storageState: '.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
-
     {
       name: 'edge',
       use: {

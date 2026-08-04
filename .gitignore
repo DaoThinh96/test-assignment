@@ -28,4 +28,4 @@ credentials.json
 token.json
 allure-results
 allure-report
-.auth/*.json
+.auth
