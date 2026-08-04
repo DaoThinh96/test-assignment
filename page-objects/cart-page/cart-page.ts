@@ -9,7 +9,7 @@ export interface PlaceOrderForm {
   year: string;
 }
 export class CartPage extends BasePage {
-  readonly itemLocatorByRow: Function
+  readonly itemLocatorByRow:(itemName: string) => Locator
   readonly totalPriceLocator: Locator
   readonly placeOrderButton: Locator
   readonly nameInPlaceOrder: Locator
@@ -58,17 +58,6 @@ export class CartPage extends BasePage {
   async getTotalPriceInCart(): Promise<string> {
     const totalPriceOnUI = await this.totalPriceLocator.innerText();
     return totalPriceOnUI;
-  }
-
-  async verifyItemsInCartAndClickPlaceOrder(itemsList: string[]): Promise<void> {
-    for (const item of itemsList) {
-      try {
-        const itemName = this.itemLocatorByRow(item);
-        await expect(itemName).toBeVisible();
-      } catch (error) {
-        throw new Error(`Item "${item}" is not visible in the cart. Error: ${error}`);
-      }
-    }
   }
 
   async inputInformationInPlaceOrder(data: PlaceOrderForm): Promise<void> {

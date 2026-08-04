@@ -9,7 +9,7 @@ setup('authenticate', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.goto("/");
     await homePage.navigateTab("Log in");
-    await homePage.inputEmailAndPassword(ENV.TEST_EMAIL!, ENV.TEST_PASSWORD!);
+    await homePage.inputEmailAndPassword(ENV.TEST_EMAIL, ENV.TEST_PASSWORD);
     await homePage.verifyLoginSuccessful();
 
     await page.context().storageState({ path: authFile });

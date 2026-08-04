@@ -27,7 +27,7 @@ test.describe('Demoblaze web flows', () => {
         name: testData.nameInPlaceOrder,
         country: testData.countryInPlaceOrder,
         city: testData.cityInPlaceOrder,
-        creditCard: ENV.TEST_CREDIT_CARD!,
+        creditCard: ENV.TEST_CREDIT_CARD,
         month: testData.monthInPlaceOrder,
         year: testData.yearInPlaceOrder,
       });
@@ -39,7 +39,7 @@ test.describe('Demoblaze web flows', () => {
 
     await test.step('Verify purchase successfully and close confirmation', async () => {
       await cartPage.verifyPurchaseSuccessfully(
-        ENV.TEST_CREDIT_CARD!,
+        ENV.TEST_CREDIT_CARD,
         testData.nameInPlaceOrder,
         testData.yearInPlaceOrder,
       );

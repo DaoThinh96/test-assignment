@@ -13,12 +13,12 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.logoutLink = page.getByRole('link', { name: 'Log out' }),
-    this.accountName = page.getByRole('link', { name: 'Welcome test' }),
-    this.logInButton = page.getByRole('button', { name: 'Log in' })
+      this.accountName = page.getByRole('link', { name: 'Welcome test' }),
+      this.logInButton = page.getByRole('button', { name: 'Log in' })
     this.username = page.locator(`#loginusername`),
-    this.password = page.locator(`#loginpassword`),
-    this.itemLocatorByLink = (itemName: string) => page.getByRole('link', { name: itemName });
-    this.addToCart =  page.getByRole('link', { name: 'Add to cart' });
+      this.password = page.locator(`#loginpassword`),
+      this.itemLocatorByLink = (itemName: string) => page.getByRole('link', { name: itemName });
+    this.addToCart = page.getByRole('link', { name: 'Add to cart' });
   }
 
   /* ============ Methods =============== */
@@ -29,15 +29,16 @@ export class HomePage extends BasePage {
   }
 
   async addItemsToCart(itemsList: string[]): Promise<void> {
+    this.page.on('dialog', async dialog => {
+      await dialog.accept();
+    });
+
     for (const item of itemsList) {
       try {
         const itemName = this.itemLocatorByLink(item);
         await itemName.waitFor({ state: 'visible' }).then(async () => {
           await this.waitAndClick(itemName);
           await this.waitAndClick(this.addToCart);
-          this.page.on('dialog', async dialog => {
-            await dialog.accept();
-          });
           await this.navigateTab('Home');
         });
       } catch (error) {

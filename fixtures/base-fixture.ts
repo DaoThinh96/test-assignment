@@ -5,7 +5,6 @@ import { CartPage } from "../page-objects/cart-page/cart-page";
 export type MyFixtures = {
   homePage: HomePage;
   cartPage: CartPage;
-  loginPage: HomePage;
 };
 
 export const test = base.extend<MyFixtures>({
