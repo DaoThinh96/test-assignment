@@ -15,7 +15,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: [
     ["html", { open: "never", outputFolder: "./test-output/html" }],
-    ["allure-playwright", { detail: true, outputFolder: "./test-output/allure-results" }],
+    ["allure-playwright", { detail: true, resultsDir: "./test-output/allure-results" }],
   ],
   use: {
     actionTimeout: 10000,
